@@ -1,0 +1,18 @@
+@(redirects: List[RedirectModel])(implicit flash: Flash, lang: Lang)
+
+@main(Messages("application.name")) {
+
+  <dl class="redirects">
+    @for(redirect <- redirects) {
+      <dt>
+          <a href="@controllers.routes.Redirects.show(redirect.uid)">
+              @redirect.uid
+          </a>
+      </dt>
+      <dd>@redirect.iurl</dd>
+    }
+  </dl>
+
+  <p><a href="@controllers.routes.Redirects.newProduct()" class="btn">
+    <i class="icon-plus"></i> @Messages("products.new.command")</a></p>
+}

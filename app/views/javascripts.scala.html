@@ -1,0 +1,24 @@
+<script type="text/javascript">
+var successFn = function(data) {
+console.debug("Success of Ajax Call");
+console.debug(data);
+};
+var errorFn = function(err) {
+console.debug("Error of ajax Call");
+console.debug(err);
+}
+ 
+ajax1 = {
+success: successFn,
+error: errorFn
+}
+ 
+function myFunction() {
+
+alert("Testing")
+
+jsRoutes.controllers.Redirects.getString()
+.ajax(ajax1);
+ 
+}
+</script>

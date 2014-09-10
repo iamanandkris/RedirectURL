@@ -1,0 +1,21 @@
+@(redirectModel: RedirectModel)(implicit flash: Flash, lang: Lang)
+
+@main(Messages("products.details", redirectModel.uid)) {
+  <h2>
+    @Messages("products.details", redirectModel.uid)
+  </h2>
+
+  <dl class="dl-horizontal">
+    <dt>@Messages("uid"):</dt>
+    <dd>@redirectModel.uid</dd>
+
+    <dt>@Messages("iurl"):</dt>
+    <dd>@redirectModel.iurl</dd>
+    
+    <dt>@Messages("qargs"):</dt>
+    <dd>@redirectModel.qargs</dd>
+
+    <dt>@Messages("rurl"):</dt>
+    <dd>@redirectModel.rurl</dd>
+  </dl>
+}
