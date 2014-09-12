@@ -7,27 +7,18 @@
 
   @helper.form(action = routes.Redirects.save()) {
     <fieldset>
-    
-      <label for="targetURL">Target URL: </label>
-  	  <div id="thecurrenturl"></div>
+      <label for="targetURL">Target URL : </label><div id='thecurrenturl'></div>
     
       <legend>
         @Messages("products.details", Messages("products.new"))
       </legend> 
       
-      @inputText(
-         redirectForm("uid"), '_label -> "User ID",'onBlur->"myFunction()",'_help -> "Enter a valid user id."
-      )
-      @textarea(
-         redirectForm("qargs"), 'onBlur->"myFunction()"
-      )
-      @textarea(
-         redirectForm("rurl"), 'onBlur->"myFunction()"
-      )
+      @inputText(redirectForm("uid"), '_label -> "User ID",'onBlur->"myFunction()",'_help -> "Enter a valid user id.")
+      @inputText(redirectForm("iurl"))
+      @textarea(redirectForm("qargs"), 'onBlur->"myFunction()")
+      @textarea(redirectForm("rurl"))
       
     </fieldset>
-    
-   
     
     <p><input type="submit" class="btn primary"
         value='@Messages("products.new.submit")'></p>
@@ -49,16 +40,15 @@
 		}
 		 
 		function myFunction() {
-		
-			alert("test")
 			var idToGet = document.getElementById('uid').value
 			var qargsToGet = document.getElementById('qargs').value
-			var rurlToGet = document.getElementById('rurl').value
 			
-			var s= document.getElementById("thecurrenturl");
-  			s.html = "testing again";
+			var s= document.getElementById('thecurrenturl');
+  			var testingVal = '/redirect/oauth/'+idToGet+'/'+qargsToGet;
+  			s.innerHTML = 'http://localhost'+testingVal
   			
-			alert(idToGet+'/'+qargsToGet+'/'+rurlToGet)
+  			document.getElementById('iurl').value = testingVal;
+  			
 			jsRoutes.controllers.Redirects.getString()
 			.ajax(ajax1);
 		 

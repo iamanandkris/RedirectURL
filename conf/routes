@@ -12,6 +12,7 @@ GET		/redirects					controllers.Redirects.list
 POST 	/redirects 					controllers.Redirects.save
 GET 	/redirects/new 				controllers.Redirects.newProduct 
 GET 	/redirects/:uid 			controllers.Redirects.show(uid: String)
+GET		/redirect/oauth/*restoftheurl       controllers.Redirects.redirectLogic(restoftheurl)
 
 GET 	/javascriptRoutes    		controllers.Redirects.javascriptRoutes
 GET		/redirects/getstring		controllers.Redirects.getString

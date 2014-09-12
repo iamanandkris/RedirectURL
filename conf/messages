@@ -1,16 +1,16 @@
-application.name = Product catalog
+application.name = Redirection URL Builder
 ean = EAN
 name = Name
 description = Description
-products.details = Product: {0}
-products.form = Product details
-products.new = (new)
-products.list.navigation = Products
+products.details = URL: {0}
+products.form = Redirection URL details
+products.new = (new URL)
+products.list.navigation = Already Existing URLs
 products.new.command = New
 products.new.submit = Add
-products.new.success = Successfully added product {0}.
+products.new.success = Successfully added URL {0}.
 validation.errors = Please correct the errors in the form.
-validation.ean.duplicate = A product with this EAN code already exists
+validation.ean.duplicate = A URL already exists
 
 uid = User ID
 iurl = Incoming URL

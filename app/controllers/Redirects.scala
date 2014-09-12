@@ -24,7 +24,7 @@ object Redirects extends Controller {
 		mapping(
 				"id" -> optional(longNumber),
 				"uid" -> nonEmptyText.verifying("validation.ean.duplicate", RedirectsTable.findByUid(_).isEmpty),
-				"iurl" -> nonEmptyText,
+				"iurl" -> optional(text),
 				"qargs" -> nonEmptyText,
 				"rurl" -> nonEmptyText
 		)(RedirectModel.apply)(RedirectModel.unapply)
@@ -74,4 +74,22 @@ object Redirects extends Controller {
 		import routes.javascript._
 		Ok(Routes.javascriptRouter("jsRoutes")(routes.javascript.Redirects.getString)).as("text/javascript")
 	}
+    
+    def redirectLogic(redirectParam : String) = Action{
+	  request =>
+	  val test = request.uri
+	  
+	  println("URI = " + test)
+	  println("Rest of the urls = " + redirectParam)
+	  
+	  val tempModel = RedirectsTable.findByURL(test)
+	  val url = tempModel match {
+	    case Some(s) => s.rurl
+	    case None => "en.wikipedia.org/wiki/Sreevalsan_J_Menon"
+	  }
+	  
+	  println("Return urls = " + url)
+	  Redirect("http://"+url)
+  }
 }
+ 
