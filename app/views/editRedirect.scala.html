@@ -13,8 +13,8 @@
         @Messages("products.details", Messages("products.new"))
       </legend> 
       
-      @inputText(redirectForm("uid"), '_label -> "User ID",'onBlur->"myFunction()",'_help -> "Enter a valid user id.")
-      @inputText(redirectForm("iurl"))
+      @inputText(redirectForm("uid"), '_label -> "User ID",     'onBlur->"myFunction()",'_help -> "Enter a valid user id.")
+      @inputText(redirectForm("iurl"),'_label -> "Incoming URL",'onBlur->"myFunction()",'_help -> "Enter an specific URL Pattern if needed.")
       @textarea(redirectForm("qargs"), 'onBlur->"myFunction()")
       @textarea(redirectForm("rurl"))
       
@@ -42,12 +42,24 @@
 		function myFunction() {
 			var idToGet = document.getElementById('uid').value
 			var qargsToGet = document.getElementById('qargs').value
+			var iurlToGet = document.getElementById('iurl').value
 			
 			var s= document.getElementById('thecurrenturl');
-  			var testingVal = '/redirect/oauth/'+idToGet+'/'+qargsToGet;
-  			s.innerHTML = 'http://localhost'+testingVal
-  			
-  			document.getElementById('iurl').value = testingVal;
+			
+			var testingVal = 'http://localhost:9000/redirect/oauth/'
+			if (idToGet){
+				testingVal = testingVal+idToGet+'/'
+			}
+			
+			if (iurlToGet){
+				testingVal = testingVal+iurlToGet+'/'
+			}
+			
+			if (qargsToGet){
+				testingVal = testingVal+qargsToGet
+			}
+			
+  			s.innerHTML = testingVal
   			
 			jsRoutes.controllers.Redirects.getString()
 			.ajax(ajax1);

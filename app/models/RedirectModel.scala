@@ -14,7 +14,7 @@ import play.api.GlobalSettings
 import play.api.Application
 import play.api.db.slick.DB.withSession
 
-case class RedirectModel(id: Option[Long], uid: String, iurl: Option[String], qargs: String,rurl :String)
+case class RedirectModel(id: Option[Long], uid: String, var iurl: String, qargs: String,rurl :String)
 
 object RedirectsTable extends Table[RedirectModel]("redirects") {
 
@@ -23,8 +23,8 @@ object RedirectsTable extends Table[RedirectModel]("redirects") {
   def iurl = column[String]("iurl")
   def qargs = column[String]("qargs")
   def rurl = column[String]("rurl")
-  def * = id.? ~ uid ~ iurl.? ~ qargs ~ rurl <> (RedirectModel, RedirectModel.unapply _)
-  def forInsert = uid ~ iurl.? ~ qargs ~ rurl <> (
+  def * = id.? ~ uid ~ iurl ~ qargs ~ rurl <> (RedirectModel, RedirectModel.unapply _)
+  def forInsert = uid ~ iurl ~ qargs ~ rurl <> (
     t => RedirectModel(None, t._1, t._2, t._3,t._4),
     (p: RedirectModel) => Some((p.uid, p.iurl, p.qargs,p.rurl)))
   

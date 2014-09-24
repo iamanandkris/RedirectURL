@@ -24,7 +24,7 @@ object Redirects extends Controller {
 		mapping(
 				"id" -> optional(longNumber),
 				"uid" -> nonEmptyText.verifying("validation.ean.duplicate", RedirectsTable.findByUid(_).isEmpty),
-				"iurl" -> optional(text),
+				"iurl" -> nonEmptyText,
 				"qargs" -> nonEmptyText,
 				"rurl" -> nonEmptyText
 		)(RedirectModel.apply)(RedirectModel.unapply)
@@ -50,7 +50,15 @@ object Redirects extends Controller {
 	        Redirect(routes.Redirects.newProduct()).flashing(Flash(form.data) +("error" -> Messages("validation.errors")))
 	      },
 	      success = { newProduct =>
+	        println("User id = " + newProduct.uid)
+	        println("incoming url = " + newProduct.iurl)
+	        println("query = " + newProduct.qargs)
+	        println("target = " + newProduct.rurl)
+	        
+	        newProduct.iurl = "/redirect/oauth/"+newProduct.uid+"/"+newProduct.iurl+"/"+newProduct.qargs
+	        println("New Icoming URL = " + newProduct.iurl)
 	        RedirectsTable.insert(newProduct)
+	        
 	        val message = Messages("products.new.success", newProduct.uid)
 	        Redirect(routes.Redirects.show(newProduct.uid)).flashing("success" -> message)
 	      }
